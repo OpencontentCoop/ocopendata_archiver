@@ -7,11 +7,18 @@ use Opencontent\Opendata\Rest\Client\PayloadBuilder;
 
 class OCOpenDataArchiver
 {    
+    const LOGGER_EZLOG = 1;
+    const LOGGER_EZCLI = 1;
+
     private $type;
 
     private $user;
 
     private $timestamp;
+
+    private $logger;
+
+    private static $apiClasses = array();
 
     public function __construct($type = OCOpenDataArchiveItem::TYPE_IMMEDIATE, $timestamp = null)
     {
@@ -20,10 +27,42 @@ class OCOpenDataArchiver
         $this->timestamp = $timestamp ? $timestamp : time();
     }
 
+    public function setLogger($logger)
+    {
+        if ($logger == self::LOGGER_EZLOG){
+            $this->logger = self::LOGGER_EZLOG;
+        
+        }elseif ($logger == self::LOGGER_EZCLI){
+            $this->logger = self::LOGGER_EZCLI;
+        
+        }else{
+            throw new Exception("Logger $logger unhandled");    
+        }
+    }
+
+    private function log($message)
+    {
+        if($this->logger == self::LOGGER_EZLOG){
+            eZLog::write($message, 'ocopendata_archive.log');
+        }
+
+        if($this->logger == self::LOGGER_EZCLI){
+            $time = strftime("%H:%M:%S", strtotime("now"));
+            $logMessage = "[" . $time . "] $message";
+            eZCLI::instance()->output($logMessage);
+        }
+    }
+
     public function archive(eZContentObject $object)
     {
-        $classRepository = new ClassRepository();
-        $apiClass = (array)$classRepository->load($object->attribute('class_identifier'));
+        $classIdentifier = $object->attribute('class_identifier');
+        if (!isset(self::$apiClasses[$classIdentifier])){
+            $classRepository = new ClassRepository();
+            $this->log("Load class " . $classIdentifier);
+            self::$apiClasses[$classIdentifier] = (array)$classRepository->load($classIdentifier);
+             
+        }
+        $apiClass = self::$apiClasses[$classIdentifier];
         $environment = new OCOpenDataArchiveEnvironment();
         $apiContent = (array)$environment->filterContent(Content::createFromEzContentObject($object));        
         $dataText = array(
@@ -31,6 +70,7 @@ class OCOpenDataArchiver
             'content' => $apiContent,
         );
 
+        $this->log("Load assigned nodes of object #" . $object->attribute('id'));
 		$nodes = $object->assignedNodes();
         $urlAliasList = $nodeIdList = array();        
         foreach ($nodes as $node) {
@@ -79,9 +119,10 @@ class OCOpenDataArchiver
             }
         }
 
+        $this->log("Store archive item");
         $archiveItem = new OCOpenDataArchiveItem(array(
         	'type' => $this->type,
-            'class_identifier' => $object->attribute('class_identifier'),
+            'class_identifier' => $classIdentifier,
         	'url_alias_list' => json_encode($urlAliasList),
         	'data_text' => json_encode($dataText),
         	'node_id_list' => json_encode($nodeIdList),
@@ -92,8 +133,10 @@ class OCOpenDataArchiver
         ));
         $archiveItem->store();
 
+        $this->log("Delete object #" . $object->attribute('id'));
         eZContentOperationCollection::deleteObject($nodeIdList);
 
+        $this->log("Register search archive item");
         $this->registerSearchItem($archiveItem);
 
     }

@@ -75,7 +75,7 @@ $(document).ready(function () {
     .data('opendataDataTable');
     
     datatable.loadDataTable();
-
+    
     $('#QuerySubmit').on('click', function(e){
         var customQuery = $('#Query').val();
         if (customQuery.length > 0){
@@ -83,6 +83,10 @@ $(document).ready(function () {
         }
         datatable.settings.builder.query = baseQuery + customQuery;
         datatable.loadDataTable();
+        e.preventDefault();
+    });
+    $('#QueryForm').on('submit', function(e){
+        $('#QuerySubmit').trigger('click');
         e.preventDefault();
     });
 });
