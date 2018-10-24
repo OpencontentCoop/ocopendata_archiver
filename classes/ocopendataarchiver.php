@@ -45,6 +45,8 @@ class OCOpenDataArchiver
 
             $nodeIdList[] = $node->attribute('node_id');
 
+            $urlAliasList[] = '/content/view/full/' . $node->attribute('node_id');
+
             // Fetch generated names of node
             $filter = new eZURLAliasQuery();
             $filter->actions = array('eznode:' . $node->attribute('node_id'));

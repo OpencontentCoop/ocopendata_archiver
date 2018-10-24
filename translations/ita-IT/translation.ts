@@ -90,6 +90,10 @@
     <message>
         <source>This content was archived on %1</source>
         <translation>Questo contenuto è stato archiviato il %1</translation>
-    </message> 
+    </message>
+    <message>
+        <source>No archived items</source>
+        <translation>Nessun elemento archiviato</translation>
+    </message>     
 </context>
 </TS>

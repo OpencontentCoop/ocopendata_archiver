@@ -7,7 +7,7 @@
     <h1>{'Archived items by %1 on %2'|i18n( 'extension/ocopendata_archiver',, array($user_name, $timestamp|l10n( 'shortdatetime' )) )}</h1>
     <div class="block">            
     {if not( $list_count )}
-        <p><strong>{"No archived items"|i18n( 'extension/sqliimport' )}</strong></p>
+        <p><strong>{"No archived items"|i18n( 'extension/ocopendata_archiver' )}</strong></p>
     {else}
         <table class="list" cellspacing="0">
             <thead>
@@ -43,7 +43,7 @@
             <a class="btn btn-xs btn-info" href={'/archiver/search'|ezurl}>{'Search an archived item'|i18n( 'extension/ocopendata_archiver' )}</a>
         </p>
     {if not( $list_count )}
-        <p><strong>{"No archived items"|i18n( 'extension/sqliimport' )}</strong></p>
+        <p><strong>{"No archived items"|i18n( 'extension/ocopendata_archiver' )}</strong></p>
     {else}
         <table class="list" cellspacing="0">
             <thead>
