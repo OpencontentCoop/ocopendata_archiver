@@ -13,7 +13,7 @@
 ))}
 
 <script type="text/javascript" language="javascript" class="init">
-var baseUrl = "{'/'|ezurl(no)}";
+var baseUrl = "{'/'|ezurl(no, full)}";
 var canUnarchive = {cond(fetch(user, has_access_to, hash(module, 'archiver', function, 'unarchiver')), 'true', 'false')};
 {literal}
 $(document).ready(function () {
