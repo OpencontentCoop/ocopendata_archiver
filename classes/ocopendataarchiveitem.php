@@ -135,7 +135,7 @@ class OCOpenDataArchiveItem extends eZPersistentObject
 			return 'immediate';
 		}
 
-		return 'scheduled';
+		return 'command line';
 	}
 
 	public function getStatusName()

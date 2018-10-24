@@ -34,6 +34,7 @@ class OCOpenDataArchiveSearchableObject extends OCCustomSearchableObjectAbstract
 
             $this->attributes['url_alias'] =  $archiveItem->attribute('url_alias_list_decoded');
             $this->attributes['archived'] =  ezfSolrDocumentFieldBase::preProcessValue((int)$archiveItem->attribute('requested_time'), 'date');
+            $this->attributes['archived_year'] = (int)date('Y', $archiveItem->attribute('requested_time'));
 
             $name = (array)$content->metadata->name;
             if (isset($name[$language])){
@@ -44,6 +45,7 @@ class OCOpenDataArchiveSearchableObject extends OCCustomSearchableObjectAbstract
             
             $timestamp = date("U", strtotime($content->metadata->published));
             $this->attributes['published'] =  ezfSolrDocumentFieldBase::preProcessValue((int)$timestamp, 'date');
+            $this->attributes['published_year'] = (int)date('Y', $timestamp);
             
             if (isset($content->data[$language]['from_time']) 
                 && !empty($content->data[$language]['from_time']['content'])){
@@ -97,13 +99,20 @@ class OCOpenDataArchiveSearchableObject extends OCCustomSearchableObjectAbstract
             OCCustomSearchableField::create('author', 'string'),
             OCCustomSearchableField::create('url_alias', 'string[]'),
             OCCustomSearchableField::create('archived', 'date'),
+            OCCustomSearchableField::create('archived_year', 'int'),
             OCCustomSearchableField::create('name', 'text'),
             OCCustomSearchableField::create('published', 'date'),
+            OCCustomSearchableField::create('published_year', 'int'),
             OCCustomSearchableField::create('from_time', 'date'),
             OCCustomSearchableField::create('to_time', 'date'),
             OCCustomSearchableField::create('repository', 'string'),
             OCCustomSearchableField::create('data', 'binary'),
         );
+    }
+
+    public function getData()
+    {
+        return $this->attributes['data'];
     }
 
     public static function fromArray($array)

@@ -1,13 +1,12 @@
 
 {ezcss_require( array(    
-    'dataTables.bootstrap.css'
+    'jquery.dataTables.css'
 ))}
 {ezscript_require(array(
     'ezjsc::jquery',
     'plugins/chosen.jquery.js',
     'moment.min.js',
     'jquery.dataTables.js',
-    'dataTables.bootstrap.js',
     'jquery.opendataDataTable.js',
     'jquery.opendataTools.js'    
 ))}
@@ -36,7 +35,7 @@ $(document).ready(function () {
                 {"data": "language","name": 'language',"title": "{/literal}{"Language"|i18n( 'extension/ocopendata_archiver' )}{literal}"},
                 {"data": "id", "name": 'id', "title": ""},
             ],
-            "columnDefs": [                
+            "columnDefs": [
                 {          
                   "render": function ( data, type, row ) {              
                     var date = moment(data,moment.ISO_8601);            
@@ -54,10 +53,12 @@ $(document).ready(function () {
                 },
                 {
                   "render": function ( data, type, row ) {
-                    var result = '<a class="btn btn-info btn-xs" href="'+baseUrl+'/archiver/view/'+row.id+'">{/literal}{"View"|i18n( 'extension/ocopendata_archiver' )}{literal}</a>';
+                    var result = '<div style="white-space:nowrap">';
+                    result += '<a class="button defaultbutton" href="'+baseUrl+'/archiver/view/'+row.id+'">{/literal}{"View"|i18n( 'extension/ocopendata_archiver' )}{literal}</a>';
                     if (canUnarchive){
-                        result += ' <a class="btn btn-danger btn-xs" href="'+baseUrl+'/archiver/unarchive/'+row.id+'">{/literal}{"Unarchive"|i18n( 'extension/ocopendata_archiver' )}{literal}</a>';
+                        result += ' <a class="button" href="'+baseUrl+'/archiver/unarchive/'+row.id+'">{/literal}{"Unarchive"|i18n( 'extension/ocopendata_archiver' )}{literal}</a>';
                     }
+                    result += '</div>';
                     return result;
                   },
                   "targets": [5]
@@ -103,10 +104,11 @@ $(document).ready(function () {
 
 <form class="form" id="QueryForm">    
     <div class="input-group">
-      <input type="text" name="Query" id="Query" class="form-control input-lg" placeholder="{"Available fields"|i18n( 'extension/ocopendata_archiver' )}: id, language, class, section, author, url_alias, archived, name, published" />
+      <input type="text" name="Query" id="Query" class="form-control input-lg halfbox" placeholder="{"Available fields"|i18n( 'extension/ocopendata_archiver' )}: id, language, class, section, author, url_alias, archived, name, published" />
       <span class="input-group-btn">
-        <button class="btn btn-success btn-lg" type="button" id="QuerySubmit">{"Search"|i18n( 'extension/ocopendata_archiver' )}</button>
+        <input class="button defaultbutton" type="submit" id="QuerySubmit" value="{"Search"|i18n( 'extension/ocopendata_archiver' )}" />
       </span>
     </div>
 </form>
+<hr />
 <div class="content-data"></div>

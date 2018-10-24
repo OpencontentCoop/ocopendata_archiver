@@ -32,8 +32,12 @@ if ($archiveItem instanceof OCOpenDataArchiveItem){
 	$Result['content'] = $tpl->fetch( 'design:archiver/view.tpl' );
 	$Result['path'] =  array( 
 		array( 
-			'url'  => $module->currentModule() . '/list',
-			'text' => ezpI18n::tr('extension/ocopendata_archiver', 'Archive list'), 
+			'url'  => 'archiver/search',
+			'text' => ezpI18n::tr('extension/ocopendata_archiver', 'Archive search')
+		),
+		array( 
+			'url'  => false,
+			'text' => $archiveItem->attribute('id')
 		)
 	);
 }else{

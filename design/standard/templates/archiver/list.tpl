@@ -36,6 +36,54 @@
     {/if}
     </div>
 {else}
+    <h1>{'Archive export'|i18n( 'extension/ocopendata_archiver' )}</h1>
+
+    <form class="form" method="get" action="{'archiver/export/'|ezurl(no, full)}" id="ExportForm">        
+        <div class="row block float-break">
+            <div class="form-group col-sm-3 element">
+                <label for="published_year">{"Published year"|i18n( 'extension/ocopendata_archiver' )}</label>
+                <select class="form-control" name="published_year" id="published_year">
+                <option></option>    
+                {foreach $facets.published_year as $year => $count}
+                    <option value="{$year}">{$year}</option>    
+                {/foreach}
+                </select>
+            </div>
+
+            <div class="form-group col-sm-3 element">
+                <label for="class">{"Class"|i18n( 'extension/ocopendata_archiver' )}</label>
+                <select class="form-control" name="class" id="class">                
+                {foreach $facets.class as $class => $count}
+                    <option value="{$class}">{$class}</option>    
+                {/foreach}
+                </select>
+            </div>
+
+            <div class="form-group col-sm-3 element">
+                <label for="format">{"Format"|i18n( 'extension/ocopendata_archiver' )}</label>
+                <select class="form-control" name="format" id="format">            
+                    <option value="csv">CSV</option>
+                    <option value="json">JSON</option>
+                </select>
+            </div>                                
+        </div>
+        <input type="submit" class="btn btn-success defaultbutton" value="{"Export"|i18n( 'extension/ocopendata_archiver' )}" />            
+        <p><a class="link" href="#"></a></p>
+    </form>
+    <script type="text/javascript">                
+        {literal}
+        $(document).ready(function(){
+            $("#ExportForm").on('change', function(){
+                var targetForm = $(this);
+                var urlWithParams = targetForm.attr('action') + "?" + targetForm.serialize();
+                $("#ExportForm a.link").attr('href', urlWithParams).html('<i class="fa fa-link"></i> ' + urlWithParams);
+            });
+        });
+        {/literal}
+    </script>
+
+    <hr />
+
     <h1>{'Archive list'|i18n( 'extension/ocopendata_archiver' )}</h1>
     <div class="block">
         <p>

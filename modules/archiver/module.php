@@ -58,6 +58,14 @@ $ViewList['findmodule'] = array(
     'unordered_params' => array()
 );
 
+$ViewList['export'] = array(
+    'default_navigation_part' => 'ezsetupnavigationpart',
+    'functions' => array( 'list' ),
+    'script' => 'export.php',
+    'params' => array(),
+    'unordered_params' => array()
+);
+
 $FunctionList = array();
 $FunctionList['view'] = array();
 $FunctionList['search'] = array();

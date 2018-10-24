@@ -94,6 +94,26 @@
     <message>
         <source>No archived items</source>
         <translation>Nessun elemento archiviato</translation>
-    </message>     
+    </message>
+    <message>
+        <source>Archive search</source>
+        <translation>Ricerca in archivio</translation>
+    </message>
+    <message>
+        <source>Archive export</source>
+        <translation>Esporta contenuti archiviati</translation>
+    </message>
+    <message>
+        <source>Published year</source>
+        <translation>Anno di pubblicazione</translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <translation>Formato</translation>
+    </message>        
+    <message>
+        <source>Export</source>
+        <translation>Esporta</translation>
+    </message>            
 </context>
 </TS>

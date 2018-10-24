@@ -31,6 +31,14 @@ if ($timestamp > 0 && $userID > 0){
 }else{
 	$currentURI = '/' . $Module->currentModule() . '/' . $Module->currentView();
 
+	$repository = new OCOpenDataArchiveSearchableRepository();
+	$parametes = OCCustomSearchParameters::instance()->setLimit(1)->setFacets(array(
+		array('field' => 'published_year', 'limit' => 100),
+		array('field' => 'class', 'limit' => 100),
+	));
+	$result = $repository->find($parametes);	
+	$tpl->setVariable('facets', $result['facets']);
+
 	$archiveItemList = array();
 	$query = "SELECT DISTINCT requested_time, type, user_id, status, count(object_id) as object_count FROM ocopendata_archive_item GROUP BY requested_time, type, user_id, status ORDER BY requested_time DESC";
 	$countQuery = "SELECT COUNT(DISTINCT requested_time) as count FROM ocopendata_archive_item";
