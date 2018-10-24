@@ -1,0 +1,21 @@
+{
+    "name": "opencontent/ocopendata_archiver-ls",
+    "description": "Opencontent Object Archiver",
+    "type": "ezpublish-legacy-extension",
+    "authors": [        
+        {
+            "name": "OpenContent",
+            "homepage": "http://www.opencontent.it"
+        }
+    ],
+    "license": "GPL-2.0",    
+    "minimum-stability": "dev",
+    "require": {
+        "ezsystems/ezpublish-legacy-installer": "*",
+        "opencontent/ocopendata-ls": ">2.14",
+        "opencontent/occustomfind-ls": "*"
+    },
+    "extra": {
+        "ezpublish-legacy-extension-name": "ocopendata_archiver"
+    }
+}
