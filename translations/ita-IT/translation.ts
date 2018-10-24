@@ -97,7 +97,7 @@
     </message>
     <message>
         <source>Archive search</source>
-        <translation>Ricerca in archivio</translation>
+        <translation>Contenuti archiviati</translation>
     </message>
     <message>
         <source>Archive export</source>
