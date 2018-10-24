@@ -87,5 +87,9 @@
         <source>Available fields</source>
         <translation>Campi disponibili</translation>
     </message> 
+    <message>
+        <source>This content was archived on %1</source>
+        <translation>Questo contenuto è stato archiviato il %1</translation>
+    </message> 
 </context>
 </TS>

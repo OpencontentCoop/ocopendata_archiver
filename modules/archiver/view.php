@@ -14,6 +14,7 @@ if ($archiveItem instanceof OCOpenDataArchiveItem){
 	$content = new Content($archiveItem->attribute('archived_content'));   
 	$env = new OCOpenDataSearchArchiveEnvironment();
     $flatContent = (array)$env->filterContent($content);
+	$tpl->setVariable('archive_item', $archiveItem);	
 	$tpl->setVariable('class', $class);	
 	$tpl->setVariable('data', $flatContent['data'][eZLocale::currentLocaleCode()]);
 	$tpl->setVariable('locale', eZLocale::currentLocaleCode());

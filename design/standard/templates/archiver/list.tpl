@@ -1,3 +1,8 @@
+{if is_set($view_parameters.error)}
+    <div class="message-warning alert alert-danger">
+        <p>{$view_parameters.error|wash()}</p>
+    </div>
+{/if}
 {if $is_detail}    
     <h1>{'Archived items by %1 on %2'|i18n( 'extension/ocopendata_archiver',, array($user_name, $timestamp|l10n( 'shortdatetime' )) )}</h1>
     <div class="block">            
