@@ -1,6 +1,6 @@
 <?php
 
-$Module = $Params['Module'];
+$module = $Params['Module'];
 $http = eZHTTPTool::instance();
 
 $year = $http->getVariable('published_year');
@@ -91,9 +91,11 @@ if ($year && $class && $format){
         eZexecution::cleanExit();
 	
 	}else{
-		return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
+		$error = '/(error)/Format+not+handled';
+		$module->redirectTo('archiver/list' . $error);
 	}
 
 }else{
-	return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
+	$error = '/(error)/Input+required';
+	$module->redirectTo('archiver/list' . $error);
 }
