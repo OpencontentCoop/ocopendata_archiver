@@ -114,6 +114,10 @@
     <message>
         <source>Export</source>
         <translation>Esporta</translation>
-    </message>            
+    </message>  
+    <message>
+        <source>Content archive</source>
+        <translation>Archivio contenuti</translation>
+    </message>          
 </context>
 </TS>

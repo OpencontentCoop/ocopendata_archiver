@@ -33,8 +33,8 @@ if ($timestamp > 0 && $userID > 0){
 
 	$repository = new OCOpenDataArchiveSearchableRepository();
 	$parametes = OCCustomSearchParameters::instance()->setLimit(1)->setFacets(array(
-		array('field' => 'published_year', 'limit' => 100),
-		array('field' => 'class', 'limit' => 100),
+		array('field' => 'published_year', 'limit' => 100, 'sort' => 'alpha'),
+		array('field' => 'class', 'limit' => 100, 'sort' => 'alpha'),
 	));
 	$result = $repository->find($parametes);	
 	$tpl->setVariable('facets', $result['facets']);
