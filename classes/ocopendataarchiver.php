@@ -147,7 +147,7 @@ class OCOpenDataArchiver
     	$content = $environment->filterContent(new Content($archiveItem->attribute('archived_content')));
 
     	$payload = new PayloadBuilder($content);        
-    	$createStruct = $environment->instanceCreateStruct($payload);
+    	$createStruct = $environment->instanceCreateStruct($payload->getArrayCopy());
         $createStruct->validate();
         $publicationProcess = new PublicationProcess($createStruct);
     	$contentId = $publicationProcess->publish();
