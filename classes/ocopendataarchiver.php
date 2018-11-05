@@ -146,8 +146,14 @@ class OCOpenDataArchiver
     	$environment = new OCOpenDataUnArchiveEnvironment();        
     	$content = $environment->filterContent(new Content($archiveItem->attribute('archived_content')));
 
-    	$payload = new PayloadBuilder($content);        
-    	$createStruct = $environment->instanceCreateStruct($payload->getArrayCopy());
+    	$payload = new PayloadBuilder($content);
+        $payload = $payload->getArrayCopy();
+        foreach ($payload['metadata']['stateIdentifiers'] as $index => $stateIdentifier) {
+            if (substr($stateIdentifier, 0, 2) == 'ez'){
+                unset($payload['metadata']['stateIdentifiers'][$index]);
+            }
+        }        
+        $createStruct = $environment->instanceCreateStruct($payload);
         $createStruct->validate();
         $publicationProcess = new PublicationProcess($createStruct);
     	$contentId = $publicationProcess->publish();
